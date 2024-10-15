@@ -4,6 +4,7 @@ namespace App\Services\Product;
 
 use App\DTO\Product\InputCreateCategory;
 use App\DTO\Product\InputeUpdateCategory;
+use App\Models\Category;
 use App\Models\ProductCategory;
 use Illuminate\Support\Str;
 
@@ -16,11 +17,11 @@ class CategoryProductService
             'slug' => Str::slug($input->slug, '_')
         ];
 
-        ProductCategory::create($data);
+        Category::create($data);
     }
 
     public function updateCategory(
-        ProductCategory $productCategory,
+        Category $productCategory,
         InputeUpdateCategory $input
     ) {
         $data = [

@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class PorductService
+class ProductService
 {
     public function __construct(
         protected ProductRepository $productRepository,
@@ -22,7 +22,7 @@ class PorductService
         $path = null;
         $data = [
             'nome' => $input->name,
-            'desricao' => $input->description,
+            'descricao' => $input->description,
             'preco_venda' => $input->priceSell,
             'preco_compra' => $input->priceBuy,
             'quantidade' => $input->quantity,
