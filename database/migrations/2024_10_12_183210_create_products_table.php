@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('descricao');
             $table->integer('preco_venda');
             $table->integer('preco_compra');
-            $table->foreignId('product_category_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->integer('quantidade');
             $table->string('image');
             $table->timestamps();
