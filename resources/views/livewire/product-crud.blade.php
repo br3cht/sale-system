@@ -30,7 +30,7 @@
                     <tr>
                         <td>{{ $product->nome }}</td>
                         <td>{{ $product->descricao }}</td>
-                        <td>{{ $product->category_id }}</td>
+                        <td>{{ $product->category->label }}</td>
                         <td>{{ $product->preco_venda }}</td>
                         <td>{{ $product->preco_compra }}</td>
                         <td>{{ $product->quantidade }}</td>
