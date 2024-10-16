@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\DTO\Product\InputCreateProduct;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
 use App\Models\Category;
 use App\Models\Product;
@@ -24,8 +25,9 @@ class ProductCrud extends Component
 
     public function render()
     {
-        $products = Product::paginate();
+        $products = Product::with('category')->paginate(10);
         $categories = Category::all();
+
         return view('livewire.product-crud', ['products' => $products, 'categories' => $categories]);
     }
 
