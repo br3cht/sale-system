@@ -97,4 +97,9 @@ class ProductService
 
         $product->delete();
     }
+
+    public function reduceQuatity(Product $product, int $quantity)
+    {
+        $product->update(['quantidade' => $product->quantide - $quantity]);
+    }
 }
