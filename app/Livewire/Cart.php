@@ -4,8 +4,11 @@ namespace App\Livewire;
 
 use App\DTO\Customer\InputCreateCustomer;
 use App\DTO\Order\CreateOrderInput;
+use App\Enum\OrderStatusEnum;
+use App\Events\OrderPaid;
 use App\Services\CustomerService;
-use App\Services\OrderServices;
+use App\Services\OrderService;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Cart extends Component
@@ -65,24 +68,30 @@ class Cart extends Component
     public function checkout()
     {
         $this->validate();
-        $orderService = resolve(OrderServices::class);
+
+        DB::transaction(function () {
+        $orderService = resolve(OrderService::class);
         $customerService = resolve(CustomerService::class);
+            $inputCustomer = new InputCreateCustomer(
+                name: $this->name,
+                email: $this->email,
+                cpf: $this->cpf,
+                phone: $this->phone
+            );
 
-        $inputCustomer = new InputCreateCustomer(
-            name: $this->name,
-            email: $this->email,
-            cpf: $this->cpf,
-            phone: $this->phone
-        );
+            $customer = $customerService->createCustomer($inputCustomer);
 
-        $customer = $customerService->createCustomer($inputCustomer);
+            $input = new CreateOrderInput(
+                customer: $customer,
+                cartItems: $this->cartItems
+            );
 
-        $input = new CreateOrderInput(
-            customer: $customer,
-            cartItems: $this->cartItems
-        );
+            $order = $orderService->CreateOrder($input);
 
-        $orderService->CreateOrder($input);
+            $order->update(['status' => OrderStatusEnum::Pago]);
+
+            event(new OrderPaid($customer, $order));
+        });
 
         session()->flash('message', 'Compra finalizada com sucesso!');
         session()->forget('cart');
