@@ -1,8 +1,13 @@
 <div class="bg-gray-100 min-h-screen">
+
     <!-- Header -->
     <header class="bg-white shadow py-4">
         <div class="container mx-auto px-4">
             <h1 class="text-2xl font-bold text-gray-800">Carrinho de Compras</h1>
+             <button onclick="window.history.back()"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition-colors">
+                Voltar
+            </button>
         </div>
     </header>
 
@@ -58,10 +63,10 @@
             <form wire:submit.prevent="checkout">
                 <h2 class="text-xl font-bold mb-4">Cupom de desconto</h2>
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">Cupom</label>
+                        <label for="cupom" class="block text-sm font-medium text-gray-700">Cupom</label>
                         <input type="text" id="cupom" wire:model="cupom"
                                class="mt-1 block w-full border rounded-lg px-4 py-2">
-                        @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        @error('cupom') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 <h2 class="text-xl font-bold mb-4">Informações do Cliente</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
