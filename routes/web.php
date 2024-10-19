@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Cart;
+use App\Livewire\ProductShop;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,3 +27,6 @@ Route::middleware([
         return view('products');
     })->name('products');
 });
+
+Route::get('/', ProductShop::class);
+Route::get('/cart', Cart::class)->name('cart');
