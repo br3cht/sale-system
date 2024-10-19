@@ -22,11 +22,16 @@
         <div class="min-h-screen bg-gray-100">
             <!-- Page Content -->
             <main>
-                <header class="bg-white shadow py-4">
-                    <div class="container mx-auto px-4">
-                        <h1 class="text-2xl font-bold text-gray-800">Loja Online</h1>
-                    </div>
-                </header>
+            <header class="bg-white shadow py-4">
+                <div class="container mx-auto px-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">Loja Online</h1>
+                    <a href="{{ route('cart') }}"
+                       class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Ir para o Carrinho
+                    </a>
+                </div>
+            </header>
+            <main>
                 {{ $slot }}
             </main>
         </div>
