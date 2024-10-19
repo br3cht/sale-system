@@ -6,6 +6,7 @@ services:
         container_name: sale-system-nginx
         image: nginx:alpine
         restart: unless-stopped
+        mem_limit: 200M
         ports:
             - "80:80"
         volumes:
@@ -15,7 +16,7 @@ services:
           - sale-system
 
     app:
-        container_name: rsus-api
+        container_name: sale-system-api
         build:
             args:
               user: ${DOCKER_USER_ID:-0}
@@ -25,6 +26,10 @@ services:
         image: sale-system-api
         restart: unless-stopped
         working_dir: /var/www/
+        mem_limit: 200M
+        command:
+        depends_on:
+          - db
         volumes:
             - .:/var/www
         networks:
@@ -34,6 +39,7 @@ services:
         container_name: sale-system-db
         image: postgres:15
         restart: unless-stopped
+        mem_limit: 400M
         environment:
             POSTGRES_USER: root
             POSTGRES_DB: sale-system
@@ -45,18 +51,34 @@ services:
         networks:
           - sale-system
 
+    queue:
+      container_name: sale-system-queue
+      image: sale-system-api
+      restart: unless-stopped
+      working_dir: /var/www
+      mem_limit: 400M
+      command: ['bash', '-c', 'composer install && php artisan migrate && php artisan horizon']
+      depends_on:
+        - app
+        - db
+      volumes:
+        - .:/var/www
+      networks:
+        - sale-system
+
     cache:
         container_name: sale-system-redis
         image: redis:latest
+        mem_limit: 400M
         ports:
             - "6379:6379"
         networks:
             - sale-system
 
-
     mailhog:
         container_name: sale-system-mailhog
         image: 'mailhog/mailhog:latest'
+        mem_limit: 400M
         ports:
             - ${DOCKER_MAIL_SMTP_PORT}:1025
             - ${DOCKER_MAIL_HTTP_PORT}:8025
