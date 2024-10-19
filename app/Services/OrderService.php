@@ -19,7 +19,7 @@ class OrderService
         }
 
         $order = Order::create([
-            'status' => OrderStatusEnum::Pendente,
+            'status' => OrderStatusEnum::Pendente->value,
             'customer_id' => $input->customer->id,
             'valor_total' => $valorTotal
         ]);

@@ -35,17 +35,24 @@ class OrderPaidNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $mailMessage = (new MailMessage)
-            ->subject('Sue pedido foi processado');
+            ->subject('Sue pedido foi processado')
+            ->line('Status do Pedido: ' . $this->order->status);
 
         $items = $this->order->orderItems;
+        $mailMessage->line('produtos:');
+
         foreach ($items as $item) {
             $product = $item->product;
             $mailMessage->line(
-                'produto: ' . $product->nome .
+                $product->nome .
                 ' quantidade: ' . $item->quantidade .
-                ' preco: '  . $item->preco / 100
+                ' preço: R$ '  . $item->preco / 100
             );
         }
+
+        $mailMessage->line(
+            'Valor Total: R$ ' . $this->order->valor_total / 100
+        );
 
         return $mailMessage;
     }

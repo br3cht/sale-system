@@ -9,6 +9,7 @@ use App\Events\OrderPaid;
 use App\Services\CustomerService;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Cart extends Component
@@ -42,7 +43,7 @@ class Cart extends Component
 
     public function calculateTotal()
     {
-        if(!empty($this->cartItems)){
+        if (!empty($this->cartItems)) {
             $this->total = collect($this->cartItems)->sum(function ($item) {
                 return $item['preco_venda'] * $item['quantidade'];
             });
@@ -68,16 +69,16 @@ class Cart extends Component
     public function checkout()
     {
         $this->validate();
-
-        DB::transaction(function () {
         $orderService = resolve(OrderService::class);
         $customerService = resolve(CustomerService::class);
-            $inputCustomer = new InputCreateCustomer(
-                name: $this->name,
-                email: $this->email,
-                cpf: $this->cpf,
-                phone: $this->phone
-            );
+        $inputCustomer = new InputCreateCustomer(
+            name: $this->name,
+            email: $this->email,
+            cpf: $this->cpf,
+            phone: $this->phone
+        );
+
+        $data = DB::transaction(function () use ($orderService, $customerService, $inputCustomer){
 
             $customer = $customerService->createCustomer($inputCustomer);
 
@@ -88,10 +89,14 @@ class Cart extends Component
 
             $order = $orderService->CreateOrder($input);
 
-            $order->update(['status' => OrderStatusEnum::Pago]);
+            $order->update(['status' => OrderStatusEnum::Pago->value]);
 
-            event(new OrderPaid($customer, $order));
+            Log::info('Pedido Pago:' . $order->id);
+
+            return ['customer' => $customer, 'order' => $order];
         });
+
+        event(new OrderPaid($data['customer'], $data['order']));
 
         session()->flash('message', 'Compra finalizada com sucesso!');
         session()->forget('cart');
