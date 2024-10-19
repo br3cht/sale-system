@@ -31,7 +31,7 @@
                                     <td class="py-2 px-4">R$ {{ $item['preco_venda'] / 100 }}</td>
                                     <td class="py-2 px-4">
                                         <input type="number" min="1"
-                                        wire:model="cartItems.{{ $index }}.quantity"
+                                        wire:model="cartItems.{{ $index }}.quantidade"
                                         wire:change="updateQuantity({{ $index }}, $event.target.value)"
                                                wire:change="updateQuantity(item,$event.target.value)"
                                                class="border rounded px-2 py-1 w-16" />

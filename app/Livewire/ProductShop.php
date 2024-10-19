@@ -14,6 +14,7 @@ class ProductShop extends Component
     public $categories = [];
     public $selectedCategory = null;
     public $searchTerm = null;
+    public $isOpen = false;
 
     public function mount()
     {
@@ -24,6 +25,16 @@ class ProductShop extends Component
     {
         $this->selectedCategory = $categoryId;
         $this->resetPage();
+    }
+
+    public function openModal()
+    {
+        $this->isOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
     }
 
     public function addToCart(int $productId)
@@ -39,11 +50,13 @@ class ProductShop extends Component
                 'id' => $productId,
                 'nome' => $product->nome,
                 'preco_venda' => $product->preco_venda,
-                'quantidade' => $product->quantidade,
+                'quantidade' => 1,
             ];
         }
 
         session()->put('cart', $cart);
+        $this->openModal();
+
         session()->flash('message', 'Produto adicionado ao carrinho!');
     }
 
