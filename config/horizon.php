@@ -182,7 +182,7 @@ return [
     'defaults' => [
         'supervisor-1' => [
             'connection' => 'redis',
-            'queue' => ['default'],
+            'queue' => ['default', 'notification'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
             'maxProcesses' => 1,
@@ -193,6 +193,7 @@ return [
             'timeout' => 60,
             'nice' => 0,
         ],
+
     ],
 
     'environments' => [

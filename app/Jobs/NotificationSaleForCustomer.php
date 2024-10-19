@@ -18,7 +18,9 @@ class NotificationSaleForCustomer implements ShouldQueue
     public function __construct(
         public Order $order,
         public Customer $customer
-    ) { }
+    ) {
+        $this->queue = 'notification';
+    }
     /**
      * Execute the job.
      */
