@@ -22,14 +22,19 @@
         <div class="min-h-screen bg-gray-100">
             <!-- Page Content -->
             <main>
-            <header class="bg-white shadow py-4">
+            <header class="bg-white shadow py-2">
                 <div class="container mx-auto px-4 flex justify-between items-center">
                     <a href ="{{route('home')}}" class="text-2xl font-bold text-gray-800">Loja Online</h1>
-                    <a href="{{ route('carrinho') }}"
-                       class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                        Ir para o Carrinho
-                    </a>
-                </div>
+                    <div class="flex space-x-2"> <!-- Usando space-x-2 para espaçamento entre os botões -->
+                        <a href="{{ route('carrinho') }}"
+                           class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                            Ir para o Carrinho
+                        </a>
+                        <a href="{{ route('dashboard') }}"
+                           class="text-gray-800 px-4 py-2 rounded-lg transition-colors">
+                            Dashboard
+                        </a>
+                    </div>
             </header>
             <main>
                 {{ $slot }}
