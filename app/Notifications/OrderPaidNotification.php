@@ -34,6 +34,8 @@ class OrderPaidNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $url = 'http://localhost/compra-finalizado?order=' . $this->order->id . '&token=' . $this->order->token;
+
         $mailMessage = (new MailMessage)
             ->subject('Sue pedido foi processado')
             ->line('Status do Pedido: ' . $this->order->status);
@@ -52,6 +54,10 @@ class OrderPaidNotification extends Notification
 
         $mailMessage->line(
             'Valor Total: R$ ' . $this->order->valor_total / 100
+        );
+
+        $mailMessage->action(
+            'segue a URL para acompanhar o pedido URL ', url('/compra-finalizada?order=' . $this->order->id . '&token=' . $this->order->token)
         );
 
         return $mailMessage;
