@@ -9,7 +9,7 @@
                             class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors mr-2">
                         Continuar Comprando
                     </button>
-                    <a href="{{ route('cart') }}"
+                    <a href="{{ route('carrinho') }}"
                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                         Ir para o Carrinho
                     </a>
