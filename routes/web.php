@@ -29,4 +29,4 @@ Route::middleware([
 });
 
 Route::get('/', ProductShop::class);
-Route::get('/cart', Cart::class)->name('cart');
+Route::get('/carrinho', Cart::class)->name('carrinho');
