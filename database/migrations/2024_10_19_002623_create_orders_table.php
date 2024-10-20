@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('status');
             $table->integer('valor_total');
+            $table->string('token')->nullable();
             $table->foreignId('customer_id')->constrained();
             $table->timestamps();
         });
