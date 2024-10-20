@@ -85,7 +85,7 @@ class Cart extends Component
             $input = new CreateOrderInput(
                 customer: $customer,
                 cartItems: $this->cartItems,
-                cupom: $this->cupom
+                cupom: optional($this)->cupom
             );
 
             $order = $orderService->CreateOrder($input);
@@ -103,6 +103,11 @@ class Cart extends Component
         session()->forget('cart');
         $this->cartItems = [];
         $this->calculateTotal();
+
+        return redirect()->route('compra-finalizada',[
+            'order' => $data['order']->id,
+            'token' => $data['order']->token
+        ]);
     }
 
     public function render()
