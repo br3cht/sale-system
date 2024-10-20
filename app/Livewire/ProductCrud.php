@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\DTO\Product\InputCreateProduct;
+use App\DTO\Product\InputUpdateProduct;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
@@ -68,7 +69,7 @@ class ProductCrud extends Component
             'quantity' => 'required|integer|min:1',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $category = Category::find($dataRequest['category_id']);
@@ -93,7 +94,22 @@ class ProductCrud extends Component
         $this->resetInputFields();
     }
 
-    public function edit($id)
+    public function edit(int $id)
+    {
+        $product = Product::findOrFail($id);
+        $this->product_id = $product->id;
+        $this->name = $product->nome;
+        $this->description = $product->descricao;
+        $this->price_sell = $product->preco_venda;
+        $this->price_buy = $product->preco_compra;
+        $this->category_id = $product->category_id;
+        $this->quantity = $product->quantidade;
+        $this->image = $product->image;
+
+        $this->openModal();
+    }
+
+    public function update()
     {
         $service = resolve(ProductService::class);
         $dataRequest = $this->validate([
@@ -103,12 +119,12 @@ class ProductCrud extends Component
             'quantity' => 'nullable|integer|min:1',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|max:2048'
         ]);
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($this->product_id);
         $category = Category::find($dataRequest['category_id']);
 
-        $input = new InputCreateProduct(
+        $input = new InputUpdateProduct(
             name: optional($dataRequest)['name'],
             description: optional($dataRequest)['description'],
             priceBuy: optional($dataRequest)['price_buy'],
@@ -117,6 +133,8 @@ class ProductCrud extends Component
             quantity: optional($dataRequest)['quantity'],
             image: optional($dataRequest)['image'],
         );
+
+        $service->updateProduct($product, $input);
 
         session()->flash('message', 'Product Updated Successfully.');
         $this->closeModal();

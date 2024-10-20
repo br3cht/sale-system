@@ -8,7 +8,8 @@ class CreateOrderInput
 {
     public function __construct(
         public readonly Customer $customer,
-        public readonly array $cartItems
+        public readonly array $cartItems,
+        public readonly string $cupom
     )
     { }
 }

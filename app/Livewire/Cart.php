@@ -84,7 +84,8 @@ class Cart extends Component
 
             $input = new CreateOrderInput(
                 customer: $customer,
-                cartItems: $this->cartItems
+                cartItems: $this->cartItems,
+                cupom: $this->cupom
             );
 
             $order = $orderService->CreateOrder($input);

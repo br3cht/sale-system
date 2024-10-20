@@ -12,7 +12,7 @@ class FileService
     public function getTemporaryUrl(string $path, int $expiration): string
     {
         $pathCached = null;
-        if(!Storage::has($path)){
+        if(empty($path) && !Storage::has($path)){
             return '';
         }
 

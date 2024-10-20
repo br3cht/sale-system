@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
@@ -62,7 +63,7 @@ class ProductShop extends Component
 
     public function render()
     {
-        $products = Product::query()
+        $query = Product::query()
             ->when($this->selectedCategory, function ($query) {
                 $query->where('category_id', $this->selectedCategory);
             })
@@ -70,6 +71,6 @@ class ProductShop extends Component
                 $query->where('nome', 'like', '%' . $this->searchTerm . '%');
             });
 
-        return view('livewire.product-shop', ['products' => $products->paginate(4)]);
+        return view('livewire.product-shop', ['products' => $query->paginate(6)]);
     }
 }

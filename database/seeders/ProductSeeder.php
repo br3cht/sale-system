@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 199999,
                     'preco_compra' => 150000,
                     'descricao' => 'Smartphone com tela de 6.5", 128GB de armazenamento, e câmera tripla de 48MP.',
-                    'image' => '',
+                    'image' => '' ,
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],

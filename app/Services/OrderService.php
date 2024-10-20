@@ -18,6 +18,10 @@ class OrderService
             $valorTotal += $valor;
         }
 
+        if($input->cupom == 'NTI10'){
+            $valorTotal =  ($valorTotal - ($valorTotal * 0.20)) * 100;
+        }
+
         $order = Order::create([
             'status' => OrderStatusEnum::Pendente->value,
             'customer_id' => $input->customer->id,

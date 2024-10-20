@@ -51,7 +51,7 @@
                                 <p class="text-gray-600 mt-1">{{ $product->descricao }}</p>
                                 <p class="text-blue-500 font-semibold mt-2">R$ {{ $product->preco_venda / 100 }}</p>
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                    <img src="{{ Storage::temporaryUrl($product->image, 10)}}"
                                          alt="{{ $product->name }}"
                                          class="mt-4 rounded-lg w-full h-40 object-cover">
                                 @endif
