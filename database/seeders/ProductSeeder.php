@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 199999,
                     'preco_compra' => 150000,
                     'descricao' => 'Smartphone com tela de 6.5", 128GB de armazenamento, e câmera tripla de 48MP.',
-                    'image' => '' ,
+                    'image' => $this->getPathForImageWebp('smartphone'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 299999,
                     'preco_compra' => 250000,
                     'descricao' => 'Smart TV com resolução 4K e tecnologia HDR, ideal para assistir a seus filmes favoritos.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('tv'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 399999,
                     'preco_compra' => 320000,
                     'descricao' => 'Notebook leve e fino com processador Intel i7 e 16GB de RAM, ideal para produtividade.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('laptop'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 4999,
                     'preco_compra' => 2500,
                     'descricao' => 'Camiseta de algodão, confortável e ideal para o dia a dia.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('camisa_basica'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -60,7 +60,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 19999,
                     'preco_compra' => 12000,
                     'descricao' => 'Jaqueta jeans clássica, perfeita para compor diversos looks.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('jaqueta'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 29999,
                     'preco_compra' => 18000,
                     'descricao' => 'Tênis confortável e resistente, ideal para prática de esportes.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('tenis'),
                     'category_id' => null,
                     'quantidade' => fake()->randomNumber()
                 ],
@@ -80,7 +80,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 14999,
                     'preco_compra' => 10000,
                     'descricao' => 'Liquidificador potente com 5 velocidades, ideal para preparar sucos e vitaminas.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('liquidificador'),
                     'quantidade' => fake()->randomNumber(),
                     'category_id' => null,
                 ],
@@ -89,7 +89,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 29999,
                     'preco_compra' => 20000,
                     'descricao' => 'Conjunto de panelas antiaderentes com 5 peças, fácil de limpar e resistente.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('panela_antiaderente'),
                     'quantidade' => fake()->randomNumber(),
                     'category_id' => null,
                 ],
@@ -98,7 +98,7 @@ class ProductSeeder extends Seeder
                     'preco_venda' => 19999,
                     'preco_compra' => 14000,
                     'descricao' => 'Cafeteira elétrica com capacidade para 12 xícaras, para café fresco a qualquer hora.',
-                    'image' => '',
+                    'image' => $this->getPathForImageWebp('cafeteira'),
                     'quantidade' => fake()->randomNumber(),
                     'category_id' => null,
                 ],
@@ -120,5 +120,10 @@ class ProductSeeder extends Seeder
                 }
             }
         }
+    }
+
+    public function getPathForImageWebp(string $filename)
+    {
+        return 'images/' . $filename . '.webp';
     }
 }
