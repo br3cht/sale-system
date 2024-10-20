@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Notifications\OrderPaidNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class NotificationSaleForCustomer implements ShouldQueue
 {
@@ -26,6 +27,7 @@ class NotificationSaleForCustomer implements ShouldQueue
      */
     public function handle(): void
     {
+        Log::debug('Enviando Notificacao para o cliente: ' . $this->customer->nome);
         $this->customer->notify(new OrderPaidNotification($this->order));
     }
 }

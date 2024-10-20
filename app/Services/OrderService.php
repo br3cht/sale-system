@@ -6,10 +6,16 @@ use App\DTO\Order\CreateOrderInput;
 use App\Enum\OrderStatusEnum;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Repository\OrderRepository;
 use Illuminate\Support\Str;
 
 class OrderService
 {
+    public function __construct(
+        protected OrderRepository $orderRepository
+    ) {
+    }
+
     public function CreateOrder(CreateOrderInput $input): Order
     {
         $valorTotal = 0;
@@ -49,6 +55,11 @@ class OrderService
                 'preco' => $dataCart[$key]['preco_venda']
             ]);
         }
+    }
+
+    public function getOrderItems(Order $order)
+    {
+        return $this->orderRepository->getOrderItems($order);
     }
 
     public function validationTokenOrder(Order $order, string $token): bool

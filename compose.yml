@@ -1,5 +1,6 @@
 volumes:
     db:
+    pgadmin_data:
 
 services:
     nginx:
@@ -57,9 +58,8 @@ services:
       restart: unless-stopped
       working_dir: /var/www
       mem_limit: 400M
-      command: ['bash', '-c', 'composer install && php artisan migrate && php artisan db:seed && php artisan horizon']
+      command: ['bash', '-c', 'composer install && php artisan migrate && php artisan db:seed && npm run build && php artisan horizon']
       depends_on:
-        - app
         - db
         - cache
       volumes:
@@ -67,6 +67,18 @@ services:
       networks:
         - sale-system
 
+    pgadmin:
+      container_name: sale-system-manager-db
+      image: dpage/pgadmin4:latest
+      environment:
+       PGADMIN_DEFAULT_EMAIL: admin@example.com
+       PGADMIN_DEFAULT_PASSWORD: admin
+      ports:
+        - "5050:80"
+      volumes:
+        - pgadmin_data:/var/lib/pgadmin
+      networks:
+        - sale-system
     cache:
         container_name: sale-system-redis
         image: redis:latest
