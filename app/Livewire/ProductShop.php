@@ -69,7 +69,7 @@ class ProductShop extends Component
             })
             ->when($this->searchTerm, function ($query) {
                 $query->where('nome', 'like', '%' . $this->searchTerm . '%');
-            });
+            })->where('quantidade', '>', 0);
 
         return view('livewire.product-shop', ['products' => $query->paginate(6)]);
     }
