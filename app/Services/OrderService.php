@@ -6,6 +6,7 @@ use App\DTO\Order\CreateOrderInput;
 use App\Enum\OrderStatusEnum;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Str;
 
 class OrderService
 {
@@ -25,7 +26,8 @@ class OrderService
         $order = Order::create([
             'status' => OrderStatusEnum::Pendente->value,
             'customer_id' => $input->customer->id,
-            'valor_total' => $valorTotal
+            'valor_total' => $valorTotal,
+            'token' => Str::random()
         ]);
 
         $this->createOrderItem($order, $input->cartItems);
@@ -33,7 +35,7 @@ class OrderService
         return $order;
     }
 
-    public function createOrderItem(Order $order, array $dataCart)
+    public function createOrderItem(Order $order, array $dataCart): void
     {
         $keys = array_keys($dataCart);
 
@@ -47,5 +49,14 @@ class OrderService
                 'preco' => $dataCart[$key]['preco_venda']
             ]);
         }
+    }
+
+    public function validationTokenOrder(Order $order, string $token): bool
+    {
+        if($token == $order->token){
+            return true;
+        }
+
+        return false;
     }
 }
