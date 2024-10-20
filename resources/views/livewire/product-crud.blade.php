@@ -1,12 +1,15 @@
-<div class="container max-auto">
+<div class="container max-auto mt-8">
     <div class="flex space-x-4">
+        <div class="flex-1"></div>
         <button wire:click="create()" class="
         font-bold
         text-white
         rounded-md
-        bg-blue-900"
+        px-4
+        py-2
+        bg-blue-800"
         >
-            Criar Produto
+            Criar Produto +
         </button>
 
         @if($isOpen)

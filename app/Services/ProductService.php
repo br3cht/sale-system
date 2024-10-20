@@ -100,6 +100,6 @@ class ProductService
 
     public function reduceQuatity(Product $product, int $quantity)
     {
-        $product->update(['quantidade' => $product->quantide - $quantity]);
+        $product->update(['quantidade' => $product->quantidade - $quantity]);
     }
 }
