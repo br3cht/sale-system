@@ -9,7 +9,7 @@ class CreateOrderInput
     public function __construct(
         public readonly Customer $customer,
         public readonly array $cartItems,
-        public readonly string $cupom
+        public readonly string|null $cupom
     )
     { }
 }
