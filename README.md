@@ -38,7 +38,17 @@ Siga os passos abaixo para executar o projeto:
    docker-compose up -d
    ```
 
-4. Acesse o aplicativo em seu navegador através da URL [http://localhost](http://localhost).
+4. rode o comando para entrar no docker  
+   ```bash
+   docker-compose exec app bash 
+   ```
+    e em seguida quando entrar no
+   ```bash
+   php artisan key:generate 
+   ```
+
+
+5. Acesse o aplicativo em seu navegador através da URL [http://localhost](http://localhost).
    ```bash
    #Caso, a porta 80 estiver em uso podera ser trocada manualmente no .env DOCKER_HTTP_PORT
    ```
