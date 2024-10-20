@@ -1,16 +1,18 @@
 <div class="container max-auto">
-    <button wire:click="create()" class="
-    font-bold
-    text-white
-    rounded-md
-    bg-blue-800"
-    >
-        Criar Produto
-    </button>
+    <div class="flex space-x-4">
+        <button wire:click="create()" class="
+        font-bold
+        text-white
+        rounded-md
+        bg-blue-900"
+        >
+            Criar Produto
+        </button>
 
-    @if($isOpen)
-        @include('livewire.product-create')
-    @endif
+        @if($isOpen)
+            @include('livewire.product-create')
+        @endif
+    </div>
 
     @if(!empty($products))
         <table class="table-auto w-full mt-4">
@@ -35,8 +37,11 @@
                         <td>{{ $product->preco_compra }}</td>
                         <td>{{ $product->quantidade }}</td>
                         <td>
-                            <button wire:click="edit({{ $product->id }})" class="bg-yellow-500 text-white px-4 py-2">Edit</button>
-                            <button wire:click="delete({{ $product->id }})" class="bg-red-500 text-white px-4 py-2">Delete</button>
+                            <div class="flex space-x-2">
+                                <button wire:click="edit({{ $product->id }})" class="bg-yellow-500 text-white px-2 py-2">
+                                    Editar
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

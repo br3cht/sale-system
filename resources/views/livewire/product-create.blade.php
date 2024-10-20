@@ -1,6 +1,6 @@
 <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
     <div class="bg-white rounded-lg shadow-xl p-4 w-1/3">
-        <form>
+        <form wire:submit.prevent="{{ $product_id ? 'update' : 'store'}}">
             <div>
                 <label>Nome</label>
                 <input type="text" wire:model="name" class="w-full rounded" required>
@@ -42,7 +42,9 @@
              <label>Image</label>
             <input type="file" wire:model="image" class="w-full rounded">
             <div class="mt-4">
-                <button wire:click.prevent="store" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    {{ $product_id ? 'Update' : 'Save' }}
+                </button>
                 <button wire:click.prevent="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
             </div>
         </form>
