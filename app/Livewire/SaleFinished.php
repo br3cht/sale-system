@@ -20,25 +20,22 @@ class SaleFinished extends Component
         'order',
         'token'
     ];
-
-    public function render()
-
+    public function mount()
     {
         $orderService = resolve(OrderService::class);
         $order = Order::find($this->order);
 
-        if(!$orderService->validationTokenOrder(
-            order: $order,
-            token: $this->token
-        )){
-            redirect()->route('home');
+        if (empty($order)) {
+            return redirect()->route('home');
         }
 
         $this->orderId = $this->order;
         $this->orderItems = $order->orderItems;
         $this->total = $order->valor_total;
         $this->status = $order->status;
-
+    }
+    public function render()
+    {
         return view('livewire.sale-finished');
     }
 }

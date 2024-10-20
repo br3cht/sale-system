@@ -24,7 +24,7 @@
             <main>
             <header class="bg-white shadow py-4">
                 <div class="container mx-auto px-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold text-gray-800">Loja Online</h1>
+                    <a href ="{{route('home')}}" class="text-2xl font-bold text-gray-800">Loja Online</h1>
                     <a href="{{ route('carrinho') }}"
                        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
                         Ir para o Carrinho
