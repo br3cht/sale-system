@@ -2,6 +2,7 @@
 
 use App\Livewire\Cart;
 use App\Livewire\ProductShop;
+use App\Livewire\SaleFinished;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,5 +29,7 @@ Route::middleware([
     })->name('products');
 });
 
-Route::get('/', ProductShop::class);
+Route::get('/compra-finalizada',SaleFinished::class)->name('compra-finalizada');
+
+Route::get('/', ProductShop::class)->name('home');
 Route::get('/carrinho', Cart::class)->name('carrinho');

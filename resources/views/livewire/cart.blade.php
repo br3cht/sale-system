@@ -4,10 +4,10 @@
     <header class="bg-white shadow py-4">
         <div class="container mx-auto px-4">
             <h1 class="text-2xl font-bold text-gray-800">Carrinho de Compras</h1>
-             <button onclick="window.history.back()"
+             <a href="{{route('home')}}"
                     class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition-colors">
                 Voltar
-            </button>
+            </a>
         </div>
     </header>
 

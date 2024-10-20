@@ -20,7 +20,9 @@ class OrderService
         }
 
         if($input->cupom == 'NTI10'){
-            $valorTotal =  ($valorTotal - ($valorTotal * 0.20)) * 100;
+            $valorTotal *= 0.60;
+
+            $valorTotal = (int)($valorTotal * 100);
         }
 
         $order = Order::create([
