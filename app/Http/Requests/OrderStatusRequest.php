@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetOrdersForCustomer extends FormRequest
+class OrderStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class GetOrdersForCustomer extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => 'required|string',
-            'order_id' => 'required|int'
+            'token' => 'required|string'
         ];
     }
 }
