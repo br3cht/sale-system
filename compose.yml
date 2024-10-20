@@ -58,9 +58,8 @@ services:
       restart: unless-stopped
       working_dir: /var/www
       mem_limit: 400M
-      command: ['bash', '-c', 'composer install && php artisan migrate && php artisan db:seed && php artisan horizon']
+      command: ['bash', '-c', 'composer install && php artisan migrate && php artisan db:seed && npm run build && php artisan horizon']
       depends_on:
-        - app
         - db
         - cache
       volumes:
