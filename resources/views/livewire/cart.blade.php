@@ -33,15 +33,16 @@
                             @foreach($cartItems as $index => $item)
                                 <tr>
                                     <td class="py-2 px-4">{{ $item['nome'] }}</td>
-                                    <td class="py-2 px-4">R$ {{ $item['preco_venda'] / 100 }}</td>
+                                    <td class="py-2 px-4">R$ {{ number_format(($item['preco_venda'] / 100), 2) }}</td>
                                     <td class="py-2 px-4">
                                         <input type="number" min="1"
+                                        :max="{{$item['quantidade_disponivel']}}"
                                         wire:model="cartItems.{{ $index }}.quantidade"
                                         wire:change="updateQuantity({{ $index }}, $event.target.value)"
                                                wire:change="updateQuantity(item,$event.target.value)"
                                                class="border rounded px-2 py-1 w-16" />
                                     </td>
-                                    <td class="py-2 px-4">R$ {{ ($item['preco_venda'] * $item['quantidade']) / 100  }}</td>
+                                    <td class="py-2 px-4">R$ {{ number_format((($item['preco_venda'] * $item['quantidade']) / 100), 2)  }}</td>
                                     <td class="py-2 px-4">
                                         <button wire:click="removeFromCart({{ $loop->index }})"
                                                 class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
@@ -54,7 +55,7 @@
                     </table>
                 </div>
                 <div class="mt-4">
-                    <h3 class="text-lg font-semibold">Total: R$ {{$total / 100}}</h3>
+                    <h3 class="text-lg font-semibold">Total: R$ {{number_format(($total / 100), 2)}}</h3>
                 </div>
             @endif
         </div>
@@ -99,10 +100,12 @@
                     </div>
                 </div>
 
-                <button type="submit"
-                        class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                    Finalizar Compra
-                </button>
+                @if(!empty($cartItems))
+                    <button type="submit"
+                            class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Finalizar Compra
+                    </button>
+                @endif
             </form>
         </div>
     </div>

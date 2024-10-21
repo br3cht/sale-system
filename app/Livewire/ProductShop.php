@@ -43,22 +43,39 @@ class ProductShop extends Component
         $product = Product::find($productId);
 
         $cart = session()->get('cart', []);
-
+        $addMore = true;
         if(!empty(optional($cart)[$productId])){
-            $cart[$productId]['quantidade'] += 1;
+            $addMore = !$this->notAddMore(
+                $cart[$productId]['quantidade'],
+                $product->quantidade
+            );
+
+            if($addMore) {
+                $cart[$productId]['quantidade'] += 1;
+            }
         } else {
             $cart[$productId] = [
                 'id' => $productId,
                 'nome' => $product->nome,
                 'preco_venda' => $product->preco_venda,
                 'quantidade' => 1,
+                'quantidade_disponivel' => $product->quantidade
             ];
         }
 
         session()->put('cart', $cart);
-        $this->openModal();
+        if($addMore){
+            $this->openModal();
+        }
+    }
 
-        session()->flash('message', 'Produto adicionado ao carrinho!');
+    public function notAddMore(int $quantity, int $maxQuantity): bool
+    {
+        if(($quantity += 1) > $maxQuantity){
+            return true;
+        }
+
+        return false;
     }
 
     public function render()
